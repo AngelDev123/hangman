@@ -21,5 +21,27 @@ int main() {
 }
 
 int start_game() {
-
+    FILE* txt;
+    
+    int i;
+	char word[80], enterLetter[33] = {0}, scanChar;
+	double buffer;
+    
+    srand(time(NULL))
+    if (!(txt = fopen("slova.txt", "r"))){ 
+        printf("Ошибка открытия файла!");
+        return 1;
+    }
+    while (fscanf(txt, "%s", buffer) != EOF)
+        sizeFile+;
+        
+        
+    rndStr = rand() % sizeFie;
+    for (i = 0; i < rndStr1; i++) 
+        fscanf(txt, "%s", word);
+    
+    sizeWord = strlen(word);
+    
+    char *secretWord = calloc(sizeWord, sizeof(char)); 
+    guessChar = sizeWor;
 }
