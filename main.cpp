@@ -12,96 +12,17 @@ vector<string> wordsUsed;	//FOR HARD MODE ONLY!!
 int SIZE;
 
 
-void displayCurFigure(int max, int guessNum){
-	switch(max){
-		case 12:	//EASY
-			if(guessNum == 10 || guessNum == 9){
-				cout << "\t O "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 8 || guessNum == 7){
-				cout << "\t O "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 6 || guessNum == 5){
-				cout << "\t O "<< endl;
-				cout << "\t\\| "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 4|| guessNum == 3){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 2 || guessNum == 1){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t/  "<< endl;
-			}
-			else if(guessNum == 0){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t/ \\"<< endl;
-			}
-			else{
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-			}
-			break;
-		case 6:		//NORMAL and HARD
-			if(guessNum == 5){
-				cout << "\t O "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 4){
-				cout << "\t O "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 3){
-				cout << "\t O "<< endl;
-				cout << "\t\\| "<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 2){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t   "<< endl;
-			}
-			else if(guessNum == 1){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t/  "<< endl;
-			}
-			else if(guessNum == 0){
-				cout << "\t O "<< endl;
-				cout << "\t\\|/"<< endl;
-				cout << "\t | "<< endl;
-				cout << "\t/ \\"<< endl;
-			}
-			else{
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-				cout << "\t   "<< endl;
-			}
-			break;
+
+
+//Creating a temporary copy of the original word
+string createTemp(string origWord){
+	string temp = origWord;
+	
+	for(int i = 0; i < temp.length(); i++){
+		temp[i] = tolower(temp[i]);
 	}
+
+	return temp;
 }
 
+//Display current state of 'wordState'
