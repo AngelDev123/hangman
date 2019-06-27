@@ -25,7 +25,7 @@ void createWordState(string word){
 }
 
 bool finishedWord(string word){
-	return (wordState = word);
+	return (wordState == word);
 }
 
 //Creating a temporary copy of the original word
