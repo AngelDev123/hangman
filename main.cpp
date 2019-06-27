@@ -24,6 +24,10 @@ void createWordState(string word){
 	}
 }
 
+bool finishedWord(string word){
+	return (wordState = word);
+}
+
 //Creating a temporary copy of the original word
 string createTemp(string origWord){
 	string temp = origWord;
