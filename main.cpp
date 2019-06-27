@@ -12,7 +12,17 @@ vector<string> wordsUsed;	//FOR HARD MODE ONLY!!
 int SIZE;
 
 
-
+//Create the starting wordState
+void createWordState(string word){
+	for(int i = 0; i < word.length(); i++){
+		if(word[i] == ' '){
+			wordState.append(" ");
+		}
+		else{
+			wordState.append("_");
+		}
+	}
+}
 
 //Creating a temporary copy of the original word
 string createTemp(string origWord){
