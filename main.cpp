@@ -120,6 +120,9 @@ void createWordState(string word){
 bool finishedWord(string word){
 	return (wordState == word);
 }
+bool letterExists(char letter, string tempWord){
+	return (tempWord.find_first_of(letter) != string::npos);
+}
 
 
 
