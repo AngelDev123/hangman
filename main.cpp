@@ -218,3 +218,13 @@ void displayLettersUsed(){
 		cout << "\n" << endl;
 	}
 }
+
+void displayWordsUsed(){
+	int j;
+	for(int i = 0; i < wordsUsed.size(); i++){
+		j = i + 1;
+		cout << j << ". " << wordsUsed[i] << endl;
+	}
+	cout << endl;
+}
+
