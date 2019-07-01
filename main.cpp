@@ -202,3 +202,19 @@ void setWordsList(vector<string> & list, string file){
 	}
 
 }
+
+//Display the letters the user already input
+void displayLettersUsed(){
+	if(lettersUsed.size() == 0){
+		cout << endl;
+	}
+	else{
+		for(int i = 0; i < lettersUsed.size(); i++){
+			if(i % 5 == 0 && i != 0){
+				cout << "\n" << endl;
+			}
+			cout << "\t" << lettersUsed[i];
+		}
+		cout << "\n" << endl;
+	}
+}
