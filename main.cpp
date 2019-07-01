@@ -123,7 +123,12 @@ bool finishedWord(string word){
 bool letterExists(char letter, string tempWord){
 	return (tempWord.find_first_of(letter) != string::npos);
 }
-
-
-
+//IF THE LETTER EXISTS, add it to 'wordState'
+void changeWordState(char letter, string wordTemp, string word){
+	for(int i = 0; i < wordState.length(); i++){
+		if(wordTemp[i] == letter){
+			wordState[i] = word[i];
+		}
+	}
+}
 
