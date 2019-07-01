@@ -170,3 +170,8 @@ void displayWordState(){
 	}
 	cout << endl;
 }
+
+void addWordsUsed(string word){
+	wordsUsed.push_back(word);
+}
+
