@@ -155,3 +155,18 @@ void addLettersUsed(char letter){
 }
 
 
+//Display current state of 'wordState'
+void displayWordState(){
+	int wordCount = 0;
+	for(int i = 0; i < wordState.length(); i++){
+		if(wordState[i] == ' '){
+			++wordCount;
+			if(wordCount > 4){
+				cout << endl;
+				wordCount = 0;
+			}
+		}
+		cout << wordState[i] << " ";
+	}
+	cout << endl;
+}
