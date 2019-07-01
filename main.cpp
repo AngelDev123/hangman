@@ -132,3 +132,24 @@ void changeWordState(char letter, string wordTemp, string word){
 	}
 }
 
+//Add the letters the user already input
+void addLettersUsed(char letter){
+	char capLetter = toupper(letter);
+	if(lettersUsed.size() == 0){
+		lettersUsed.push_back(capLetter);
+	}
+	else{
+		bool letterExists = false;
+		for(int i = 0; i < lettersUsed.size(); i++){
+			if(lettersUsed[i] == capLetter){
+				letterExists = true;
+				break;
+			}
+		}
+	
+		if(!letterExists){
+			lettersUsed.push_back(capLetter);
+		}
+	}
+
+}
