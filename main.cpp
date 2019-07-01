@@ -295,3 +295,81 @@ void startGame_EASY_NORMAL(string word, int MAX_GUESSES){
 }
 /********************************************/
 
+/**********HARD MODE**********/
+void startGame_HARD(vector<string> list, int MAX_GUESSES){
+	string word = list[rand() % list.size()];
+	int curGuessNum = MAX_GUESSES;
+	string inputGuess;
+	char letterGuess;
+	string tempWord;
+	char tempLetter;
+	int won = 1;	//1 means WIN; 0 means LOSE; 3 means quitting
+	createWordState(word);
+
+	while(true){
+		if(curGuessNum == 0){
+			displayCurFigure(MAX_GUESSES, curGuessNum);
+			won = 0;
+			break;
+		}
+		else if(finishedWord(word)){
+			break;
+		}
+
+		displayCurFigure(MAX_GUESSES, curGuessNum);
+		displayWordState();
+		cout << "\nNumber of guesses left: " << curGuessNum << endl;
+		cout << "Letters that you have guessed:\n";
+		displayLettersUsed();
+		cout << "Enter a letter (0 to exit): ";
+		cin >> inputGuess;
+		letterGuess = inputGuess[0];
+		system("cls");
+
+		//USER QUITS:
+		if(letterGuess == '0'){
+			won = 3;
+			break;
+		}
+		////////////
+
+		tempLetter = tolower(letterGuess);
+		addLettersUsed(tempLetter);
+		tempWord = createTemp(word);
+
+		if(!letterExists(tempLetter, tempWord)){
+			--curGuessNum;
+			wordState = "";
+			word = list[rand() % list.size()];
+			addWordsUsed(word);
+			createWordState(word);
+			tempWord = createTemp(word);
+			checkLettersUsed_HARD(tempWord, word);
+		}
+		else{
+			changeWordState(tempLetter, tempWord, word);
+		}
+	}
+	
+	lettersUsed.clear();
+	wordState = "";
+
+	if(won == 1){
+		cout << "YOU WON! CONGRATULATIONS!" << endl;
+		cout << "Winning word: " << word << "\n" << endl;
+		cout << "Words used: " << endl;
+		displayWordsUsed();
+		wordsUsed.clear();
+	}
+	else if(won == 0){
+		cout << "You lose!!!" << endl;
+		cout << "Words used: " << endl;
+		displayWordsUsed();
+		wordsUsed.clear();
+	}
+	else{
+		cout << "Exiting!!" << endl;
+	}
+
+}
+/********************************************/
