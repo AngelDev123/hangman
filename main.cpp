@@ -175,3 +175,30 @@ void addWordsUsed(string word){
 	wordsUsed.push_back(word);
 }
 
+//Set words list:
+void setWordsList(vector<string> & list, string file){
+	string line;
+	ifstream readline;
+	readline.open(file);
+	while(true){
+		if(getline(readline, line)){
+			list.push_back(line);
+		}
+		else{
+			SIZE = list.size();
+			readline.close();
+			break;
+		}
+	}
+
+	int k;	//Used as an index
+	//Check for any characters that are not letters:
+	for(int i = 0; i < list.size(); i++){
+		k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
+		while(k != string::npos){
+			list[i].erase(list[i].begin() + k);
+			k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
+		}
+	}
+
+}
