@@ -1,0 +1,8 @@
+language: C++
+
+script:
+- qmake
+
+compiler: g++
+
+dist: xenial
