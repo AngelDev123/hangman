@@ -415,7 +415,7 @@ int main(int argc, char *argv[]){
 	ifstream fin;
 
 	while(true){
-		cout << "Welcome to JSP's Hangman Game!" << endl;
+		cout << "Welcome to Hangman Game!" << endl;
 		cout << "MAIN MENU" << endl;
 		cout << "1) Start Game" << endl;
 		cout << "2) Load File" << endl;
