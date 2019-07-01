@@ -373,3 +373,131 @@ void startGame_HARD(vector<string> list, int MAX_GUESSES){
 
 }
 /********************************************/
+
+
+/*********MAIN*********/
+int main(){
+	string word;
+	string fileName;
+	vector<string> wordsList;
+	srand(time(0));
+	string playGame;
+	string difficulty;
+	ifstream fin;
+
+	while(true){
+		cout << "Welcome to Hangman Game!" << endl;
+		cout << "MAIN MENU" << endl;
+		cout << "1) Start Game" << endl;
+		cout << "2) Load File" << endl;
+		cout << "3) Exit" << endl;
+		cout << ">> ";
+		fileName = "";
+		cin >> playGame;
+		
+
+		if(playGame == "1" || playGame == "2"){
+			if(playGame == "1"){	//IF user selected Start Game
+				system("cls");
+				wordsList.assign(defaultWords, defaultWords + 12);
+				word = wordsList[rand() % 12];
+			}
+			else if(playGame == "2"){
+				cin.ignore();
+				system("cls");
+				cout << "**IMPORTANT**\nFile(s) must contain words that are separated by a new line. If a word contains characters that are NOT letters, those characters will be deleted.\n" << endl;
+				cout << "Please enter a file name to import your own words list: ";
+				getline(cin, fileName);
+
+
+				fin.open(fileName);
+				if(fin.fail()){
+					system("cls");
+					cout << "\"" + fileName + "\" doesn't exist!\n" << endl;
+					fin.close();
+					continue;
+				}
+				else{
+					setWordsList(wordsList, fileName);
+					fin.close();
+					if(SIZE == 0){
+						system("cls");
+						cout << "File is empty!\n" << endl;
+						continue;
+					}
+					else{
+						system("cls");
+						word = wordsList[rand() % SIZE];
+						cout << "Successfully read the file contents!\n" << endl;
+					}
+				}
+			}
+			
+			
+			while(true){
+				cout << "CHOOSE A DIFFICULTY: " << endl;
+				cout << "1) EASY" <<endl;
+				cout << "2) NORMAL" << endl;
+				cout << "3) HARD" << endl;
+				cout << "4) Difficulty description" << endl;
+				cout << "0 to return to main menu" << endl;
+				cout << ">> ";
+				cin >> difficulty;
+
+				if(difficulty == "0"){
+					system("cls");
+					break;
+				}
+				else if(difficulty == "1"){	//EASY
+					system("cls");
+					cout << "Starting Easy Mode!" << endl;
+					startGame_EASY_NORMAL(word, 12);
+					wordState.clear();
+					wordsList.clear();
+					cout << endl;
+					break;
+				}
+				else if(difficulty == "2"){	//NORMAL
+					system("cls");
+					cout << "Starting Normal Mode!" << endl;
+					startGame_EASY_NORMAL(word, 6);
+					wordState.clear();
+					wordsList.clear();
+					cout << endl;
+					break;
+				}
+				else if(difficulty == "3"){	//HARD
+					system("cls");
+					cout << "Starting Hard Mode!" << endl;
+					startGame_HARD(wordsList, 6);
+					wordState.clear();
+					wordsList.clear();
+					cout << endl;
+					break;
+				}
+				else if(difficulty == "4"){
+					system("cls");
+					cout << "EASY\t - 12 chances to guess the correct letters" << endl;
+					cout << "NORMAL\t - 6 chances to guess the correct letters" << endl;
+					cout << "HARD\t - 6 chance to guess the correct letters and \n\t every wrong guess will change the word!\n" << endl;
+				}
+				else{
+					system("cls");
+					cout << "Invalid option!\n" << endl;
+				}
+			}
+		}
+		else if(playGame == "3"){
+			cout << "Thanks for playing!" << endl;
+			break;
+		}
+		else{
+			system("cls");
+			cout << "Invalid option!\n" << endl;
+			cin.ignore();
+		}
+	}
+
+	return 0;
+}
+
