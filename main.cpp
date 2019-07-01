@@ -1,11 +1,11 @@
 #include <QCoreApplication>
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <ctime>
 #include <vector>
 using namespace std;
+
 string wordState = "";	//For the current word state
 string defaultWords[12] = {"Programming", "Language", "C Plus Plus", "Recursion", "UML", "Class Inheritance", 
 						"Asymptotic Notation", "Space Complexity", "Exchange Sort", "Quick Sort", "Templates", "Operator Overloading"};
@@ -107,6 +107,34 @@ void displayCurFigure(int max, int guessNum){
 	}
 }
 
+//Set words list:
+void setWordsList(vector<string> & list, string file){
+	string line;
+	ifstream readline;
+	readline.open(file);
+	while(true){
+		if(getline(readline, line)){
+			list.push_back(line);
+		}
+		else{
+			SIZE = list.size();
+			readline.close();
+			break;
+		}
+	}
+
+	int k;	//Used as an index
+	//Check for any characters that are not letters:
+	for(int i = 0; i < list.size(); i++){
+		k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
+		while(k != string::npos){
+			list[i].erase(list[i].begin() + k);
+			k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
+		}
+	}
+
+}
+
 //Create the starting wordState
 void createWordState(string word){
 	for(int i = 0; i < word.length(); i++){
@@ -119,12 +147,43 @@ void createWordState(string word){
 	}
 }
 
+//Check if word is complete and correct
 bool finishedWord(string word){
 	return (wordState == word);
 }
+
+//Creating a temporary copy of the original word
+string createTemp(string origWord){
+	string temp = origWord;
+	
+	for(int i = 0; i < temp.length(); i++){
+		temp[i] = tolower(temp[i]);
+	}
+
+	return temp;
+}
+
+//Display current state of 'wordState'
+void displayWordState(){
+	int wordCount = 0;
+	for(int i = 0; i < wordState.length(); i++){
+		if(wordState[i] == ' '){
+			++wordCount;
+			if(wordCount > 4){
+				cout << endl;
+				wordCount = 0;
+			}
+		}
+		cout << wordState[i] << " ";
+	}
+	cout << endl;
+}
+
+//Check if letter exists in the original word
 bool letterExists(char letter, string tempWord){
 	return (tempWord.find_first_of(letter) != string::npos);
 }
+
 //IF THE LETTER EXISTS, add it to 'wordState'
 void changeWordState(char letter, string wordTemp, string word){
 	for(int i = 0; i < wordState.length(); i++){
@@ -157,53 +216,6 @@ void addLettersUsed(char letter){
 }
 
 
-//Display current state of 'wordState'
-void displayWordState(){
-	int wordCount = 0;
-	for(int i = 0; i < wordState.length(); i++){
-		if(wordState[i] == ' '){
-			++wordCount;
-			if(wordCount > 4){
-				cout << endl;
-				wordCount = 0;
-			}
-		}
-		cout << wordState[i] << " ";
-	}
-	cout << endl;
-}
-
-void addWordsUsed(string word){
-	wordsUsed.push_back(word);
-}
-
-//Set words list:
-void setWordsList(vector<string> & list, string file){
-	string line;
-	ifstream readline;
-	readline.open(file);
-	while(true){
-		if(getline(readline, line)){
-			list.push_back(line);
-		}
-		else{
-			SIZE = list.size();
-			readline.close();
-			break;
-		}
-	}
-
-	int k;	//Used as an index
-	//Check for any characters that are not letters:
-	for(int i = 0; i < list.size(); i++){
-		k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
-		while(k != string::npos){
-			list[i].erase(list[i].begin() + k);
-			k = list[i].find_first_of("1234567890-=`~!@#$%^&*)(}{][|\\:\";\'><.,?/_+");
-		}
-	}
-
-}
 
 //Display the letters the user already input
 void displayLettersUsed(){
@@ -221,6 +233,22 @@ void displayLettersUsed(){
 	}
 }
 
+//HARD MODE ONLY:
+//Check if any of the letters previously entered are in the new word
+void checkLettersUsed_HARD(string tempWord, string origWord){
+	char tempLetter;
+	for(int i = 0; i < lettersUsed.size(); i++){
+		tempLetter = tolower(lettersUsed[i]);
+		if(letterExists(tempLetter, tempWord)){
+			changeWordState(tempLetter, tempWord, origWord);
+		}
+	}
+}
+
+void addWordsUsed(string word){
+	wordsUsed.push_back(word);
+}
+
 void displayWordsUsed(){
 	int j;
 	for(int i = 0; i < wordsUsed.size(); i++){
@@ -229,7 +257,6 @@ void displayWordsUsed(){
 	}
 	cout << endl;
 }
-
 
 /**********EASY/NORMAL MODE**********/
 void startGame_EASY_NORMAL(string word, int MAX_GUESSES){
@@ -376,7 +403,6 @@ void startGame_HARD(vector<string> list, int MAX_GUESSES){
 }
 /********************************************/
 
-
 /*********MAIN*********/
 int main(int argc, char *argv[]){
 	QCoreApplication a(argc, argv);
@@ -389,7 +415,7 @@ int main(int argc, char *argv[]){
 	ifstream fin;
 
 	while(true){
-		cout << "Welcome to Hangman Game!" << endl;
+		cout << "Welcome to JSP's Hangman Game!" << endl;
 		cout << "MAIN MENU" << endl;
 		cout << "1) Start Game" << endl;
 		cout << "2) Load File" << endl;
